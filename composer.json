@@ -1,0 +1,24 @@
+{
+  "name": "softia/challenge-php-template",
+  "description": "Template for Softia PHP Challenge",
+  "type": "project",
+  "require": {
+    "php-amqplib/php-amqplib": "^2.10"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Softia\\Challenge\\CoffeeMachine\\": "src",
+      "Softia\\Challenge\\CoffeeMachine\\Tests\\": "tests",
+      "Softia\\Challenge\\CoffeeMachine\\Database\\": "database"
+    }
+  },
+  "authors": [
+    {
+      "name": "Paul Ghiuzan",
+      "email": "pghiuzan@softia.ro"
+    }
+  ]
+}
