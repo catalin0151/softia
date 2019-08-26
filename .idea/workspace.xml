@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab15c4e6-6c72-49c5-95a1-7420fa9e684e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/ClientControllerTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/VendingMachineTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ClientController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/BaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/BaseTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ClientControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ClientControllerTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -157,7 +148,7 @@
       <workItem from="1566719925015" duration="17617000" />
       <workItem from="1566738869943" duration="17509000" />
       <workItem from="1566795276264" duration="2804000" />
-      <workItem from="1566799168941" duration="4462000" />
+      <workItem from="1566799168941" duration="4570000" />
     </task>
     <servers />
   </component>

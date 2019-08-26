@@ -88,19 +88,6 @@ class ClientControllerTest extends TestCase
 
         }
     }
-
-    public function testPlaceOrder3()
-    {
-        $this->expectException(InvalidSelectionException::class);
-        $productId = 1;
-        $quantity = 'string';
-        $result = Route::goTo('set-order', [
-            'productId' => $productId,
-            'quantity' => $quantity,
-        ]);
-        $this->assertTrue($result);
-    }
-
     public function testLeaveMachine()
     {
 //        $this->expectException(SqlException::class);
