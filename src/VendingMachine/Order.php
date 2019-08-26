@@ -17,12 +17,18 @@ class Order extends Model implements OrderInterface
     /**
      * Get order product
      *
-     * @return \Softia\Challenge\CoffeeMachine\VendingMachine\Product
+     * @return ProductInterface
      */
     public function getProduct(): ProductInterface {
         return Product::find($this->product_id);
     }
 
+    /**
+     * Insert the order
+     *
+     * @return bool
+     * @throws SqlException
+     */
     public function insert(): bool {
         $sql = 'INSERT INTO ' . self::$tableName . ' (id, machine_id, product_id, quantity, total, timestamp) 
                 VALUES(NULL, :machine_id, :product_id, :quantity, :total, :timestamp)';

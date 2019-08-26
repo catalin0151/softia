@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ab15c4e6-6c72-49c5-95a1-7420fa9e684e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpunit.result.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.phpunit.result.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/Client.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ClientController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VendingMachine/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VendingMachine/Payments/Receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/Payments/Receipt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VendingMachine/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/Product.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -153,7 +160,7 @@
       <workItem from="1566799168941" duration="4671000" />
       <workItem from="1566804822468" duration="128000" />
       <workItem from="1566815838423" duration="252000" />
-      <workItem from="1566817146811" duration="2745000" />
+      <workItem from="1566817146811" duration="6707000" />
     </task>
     <servers />
   </component>
@@ -172,16 +179,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/VendingMachine/VendingMachine.php</url>
-          <line>153</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

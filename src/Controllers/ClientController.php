@@ -5,7 +5,11 @@ namespace Softia\Challenge\CoffeeMachine\Controllers;
 use Softia\Challenge\CoffeeMachine\Client\CashBag;
 use Softia\Challenge\CoffeeMachine\Client\CreditCard;
 use Softia\Challenge\CoffeeMachine\Exceptions\InvalidSelectionException;
+use Softia\Challenge\CoffeeMachine\Exceptions\NoOrderInProgressException;
+use Softia\Challenge\CoffeeMachine\Exceptions\MachineAlreadyInUseException;
 use Softia\Challenge\CoffeeMachine\Exceptions\PaymentException;
+use Softia\Challenge\CoffeeMachine\Exceptions\SqlException;
+use Softia\Challenge\CoffeeMachine\VendingMachine\Payments\ReceiptInterface;
 use Softia\Challenge\CoffeeMachine\VendingMachine\Product;
 use Softia\Challenge\CoffeeMachine\VendingMachine\VendingMachine;
 use Softia\Challenge\CoffeeMachine\VendingMachine\Order;
@@ -15,29 +19,57 @@ use  Softia\Challenge\CoffeeMachine\Session;
 class ClientController
 {
 
-    public function useMachine() {
+    /**
+     * Connects the current user to the vending machine and locks it
+     *
+     * @return void
+     * @throws SqlException
+     * @throws MachineAlreadyInUseException
+     */
+    public function useMachine(): void
+    {
         $client = new Client();
         $vendingMachine = VendingMachine::get();
         Session::set('client', $client);
         $client->useMachine($vendingMachine);
     }
 
-    public function leaveMachine() {
+    /**
+     * Disconnects the current user from the vending machine and unlocks it
+     *
+     */
+    public function leaveMachine(): void
+    {
         $client = Session::get('client');
         $client->leaveMachine();
         Session::set('client', null);
     }
 
-    public function getProductList() {
+    /**
+     * Get the vending machine products list
+     *
+     * @return array
+     * @throws SqlException
+     */
+    public function getProductList(): array
+    {
         $client = Session::get('client');
         $products = $client->checkAvailableProducts();
         return $products;
     }
 
-    public function selectPayment($params) {
+    /**
+     * Select payment option
+     *
+     * @param array
+     *
+     * @throws  PaymentException
+     */
+    public function selectPayment($params): void
+    {
         $method = $params['type'];
         $paymentMethods = ['card', 'cash'];
-        if(!isset($method) || !in_array($method, $paymentMethods)) {
+        if (!isset($method) || !in_array($method, $paymentMethods)) {
             throw new PaymentException();
         }
         $client = Session::get('client');
@@ -50,13 +82,31 @@ class ClientController
                 break;
         }
     }
-
-    public function pay() {
+    /**
+     * Pay the current order
+     *
+     * @return ReceiptInterface
+     * @throws  SqlException
+     * @throws NoOrderInProgressException
+     */
+    public function pay()
+    {
         $client = Session::get('client');
         return $client->pay();
     }
 
-    public function setOrder($params): bool {
+
+    /**
+     * Sets in the vending machine the current order
+     *
+     * @param array
+     *
+     * @return bool
+     * @throws  SqlException
+     * @throws InvalidSelectionException
+     */
+    public function setOrder($params): bool
+    {
         $client = Session::get('client');
         $productId = $params['productId'];
         $quantity = $params['quantity'];

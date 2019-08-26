@@ -3,7 +3,9 @@
 namespace Softia\Challenge\CoffeeMachine\Client;
 
 use Softia\Challenge\CoffeeMachine\Database\Connection;
+use Softia\Challenge\CoffeeMachine\Exceptions\InvalidSelectionException;
 use Softia\Challenge\CoffeeMachine\Exceptions\MachineAlreadyInUseException;
+use Softia\Challenge\CoffeeMachine\Exceptions\NoOrderInProgressException;
 use Softia\Challenge\CoffeeMachine\Exceptions\SqlException;
 use Softia\Challenge\CoffeeMachine\Session;
 use Softia\Challenge\CoffeeMachine\VendingMachine\Order;
@@ -22,9 +24,15 @@ class Client implements ClientInterface
     private $cash = null;
     private $payMethod = null;
 
-    public function useMachine(VendingMachineInterface $vendingMachine): void {
+    /**
+     * Connects the current user to the vending machine and locks it
+     * @param VendingMachineInterface $vendingMachine
+     * @throws MachineAlreadyInUseException
+     */
+    public function useMachine(VendingMachineInterface $vendingMachine): void
+    {
         $this->vendingMachine = $vendingMachine;
-        if($this->vendingMachine->isLocked()) {
+        if ($this->vendingMachine->isLocked()) {
             throw new MachineAlreadyInUseException();
         }
         $this->vendingMachine->lock();
@@ -32,24 +40,41 @@ class Client implements ClientInterface
 
 
     /**
-     * Client leaves the machine they are sitting at
+     * Disconnects the current user from the vending machine and unlocks it
      *
-     * @return void
      */
-    public function leaveMachine(): void {
+    public function leaveMachine(): void
+    {
         $this->vendingMachine->unlock();
         $this->vendingMachine = null;
     }
-
-    public function getVendingMachine() {
+    /**
+     * Return the vending machine instance
+     *
+     * @return VendingMachineInterface
+     */
+    public function getVendingMachine(): VendingMachineInterface
+    {
         return $this->vendingMachine;
     }
 
-    public function willPayWithCard() {
+    /**
+     * Check if users opted to pay with credit card
+     *
+     * @return bool
+     */
+    public function willPayWithCard(): bool
+    {
         return $this->payMethod === 'card';
     }
 
-    public function willPayWithCash() {
+    /**
+     * Check if users opted to pay with cash
+     *
+     * @return bool
+     */
+    public function willPayWithCash(): bool
+    {
         return $this->payMethod === 'cash';
     }
 
@@ -58,7 +83,8 @@ class Client implements ClientInterface
      *
      * @param CreditCardInterface
      */
-    public function setCard(CreditCardInterface $card): void {
+    public function setCard(CreditCardInterface $card): void
+    {
         $this->card = $card;
         $this->payMethod = 'card';
     }
@@ -70,7 +96,8 @@ class Client implements ClientInterface
      *
      * @throws EmptyCashBagException
      */
-    public function setCashBag(CashBagInterface $cash): void {
+    public function setCashBag(CashBagInterface $cash): void
+    {
         $this->cash = $cash;
         $this->payMethod = 'cash';
     }
@@ -79,8 +106,10 @@ class Client implements ClientInterface
      * Client checks the machine menu
      *
      * @return array The list of ProductInterface the machine has
+     * @throws SqlException
      */
-    public function checkAvailableProducts(): array {
+    public function checkAvailableProducts(): array
+    {
         return $this->getVendingMachine()->getInventory();
     }
 
@@ -88,9 +117,11 @@ class Client implements ClientInterface
      * Pay order
      *
      * @return ReceiptInterface
-     * @throws PaymentException
+     * @throws SqlException
+     * @throws NoOrderInProgressException
      */
-    public function pay(): ReceiptInterface {
+    public function pay(): ReceiptInterface
+    {
         if ($this->willPayWithCash()) {
             return $this->payWithCash();
         }
@@ -99,20 +130,42 @@ class Client implements ClientInterface
         }
     }
 
-    public function payWithCash() {
-        $machine = $this->getVendingMachine();
+    /**
+     * Generate receipt for the current order
+     *
+     * @return ReceiptInterface
+     * @throws SqlException
+     * @throws NoOrderInProgressException
+     */
+    public function payWithCash(): ReceiptInterface
+    {
         return $this->getReceipt();
     }
 
-    public function payWithCard() {
+    /**
+     * Generate receipt for the current order
+     *
+     * @return ReceiptInterface
+     * @throws SqlException
+     * @throws NoOrderInProgressException
+     */
+    public function payWithCard(): ReceiptInterface
+    {
         $machine = $this->getVendingMachine();
         if ($machine->scanCard()) {
             return $this->getReceipt();
         }
-        return null;
     }
 
-    public function getReceipt() {
+    /**
+     * Generate receipt for the current order
+     *
+     * @return ReceiptInterface
+     * @throws SqlException
+     * @throws NoOrderInProgressException
+     */
+    public function getReceipt(): ReceiptInterface
+    {
         $machine = $this->getVendingMachine();
         $order = $machine->getCurrentOrder();
         $conn = Connection::getConnection();
@@ -144,7 +197,8 @@ class Client implements ClientInterface
      *
      * @return OrderInterface
      */
-    public function placeOrder(ProductInterface $product, int $quantity): OrderInterface {
+    public function placeOrder(ProductInterface $product, int $quantity): OrderInterface
+    {
         $machine = $this->getVendingMachine();
         $order = new Order([
             'product_id' => $product->id,
@@ -164,6 +218,7 @@ class Client implements ClientInterface
      * @return void
      * @throws CannotCancelOrderException
      */
-    public function cancelOrder(OrderInterface $order): void {
+    public function cancelOrder(OrderInterface $order): void
+    {
     }
 }

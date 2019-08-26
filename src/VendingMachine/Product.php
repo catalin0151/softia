@@ -16,16 +16,24 @@ class Product extends Model implements ProductInterface
     private static $tableName = 'products';
     public $columns = ['id', 'name', 'price', 'content', 'quantity', 'machine_id'];
 
-
-    public static function all($where = []) {
+    /**
+     * Get products
+     *
+     * @params array Where conditions
+     *
+     * @return array
+     * @throws SqlException
+     */
+    public static function all($where = []): array
+    {
         $sql = 'SELECT * FROM ' . self::$tableName;
-        if(!empty($where)) {
+        if (!empty($where)) {
             $sql .= " WHERE ";
             $first = true;
-            foreach($where as $key => $value) {
+            foreach ($where as $key => $value) {
 
                 $sql .= "$key = :$key";
-                if(!$first) {
+                if (!$first) {
                     $sql .= " AND ";
                 }
                 $first = false;
@@ -45,12 +53,26 @@ class Product extends Model implements ProductInterface
         return $products;
     }
 
-    public function toString() {
+    /**
+     * Converts to string
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
         return sprintf("id: %s, name: %s, price: %s, content: %s, availability: %s", $this->id, $this->name,
             $this->price, $this->content, $this->quantity);
     }
-
-    public static function find($id) {
+    /**
+     * Find product by id
+     *
+     * @params int Product id
+     *
+     * @return ProductInterface
+     * @throws SqlException
+     */
+    public static function find($id): ProductInterface
+    {
         $sql = "SELECT * FROM " . self::$tableName . " WHERE id = :id";
         $conn = Connection::getConnection();
         $stmt = $conn->prepare($sql);
@@ -61,7 +83,7 @@ class Product extends Model implements ProductInterface
         if (!$result) {
             throw new SqlException();
         }
-        if($stmt->rowCount() === 0) {
+        if ($stmt->rowCount() === 0) {
             throw new SqlException();
         }
 
@@ -74,7 +96,8 @@ class Product extends Model implements ProductInterface
      *
      * @return int
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->id;
     }
 
@@ -83,15 +106,24 @@ class Product extends Model implements ProductInterface
      *
      * @return bool
      */
-    public function isAvailable(): bool {
+    public function isAvailable(): bool
+    {
         return $this->quantity > 0;
     }
 
-    public function update(): bool {
+
+    /**
+     * Update the product
+     *
+     * @return bool
+     * @throws SqlException
+     */
+    public function update(): bool
+    {
         $sql = "UPDATE " . self::$tableName . ' SET name=:name, price=:price, content=:content, 
         quantity=:quantity, machine_id=:machine_id WHERE id=:id';
         $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([
+        $result =  $stmt->execute([
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
@@ -99,5 +131,10 @@ class Product extends Model implements ProductInterface
             'quantity' => $this->quantity,
             'machine_id' => $this->machine_id
         ]);
+        if (!$result) {
+            throw new SqlException();
+        }
+
+        return true;
     }
 }

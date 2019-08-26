@@ -27,7 +27,12 @@ class Receipt extends Model implements ReceiptInterface
        return $this->products;
     }
 
-    public function toString() {
+    /**
+     * Converts to string
+     *
+     * @return string
+     */
+    public function toString(): string {
         $txt = "Receipt: \n";
         foreach($this->products as $product) {
             $txt .=  sprintf("Product: %s \n", $product->name );

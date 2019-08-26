@@ -18,7 +18,14 @@ class VendingMachine extends Model implements VendingMachineInterface
     public $currentOrder = null;
     public $columns = ['id', 'locked_until'];
 
-    public static function get() {
+    /**
+     * Get vending machine
+     *
+     * @return VendingMachineInterface
+     * @throws SqlException
+     */
+    public static function get(): VendingMachineInterface
+    {
         $conn = Connection::getConnection();
         $sql = "SELECT * FROM " . self::$tableName . " limit 1";
         $stmt = $conn->prepare($sql);
@@ -34,8 +41,10 @@ class VendingMachine extends Model implements VendingMachineInterface
      * Get products inventory
      *
      * @return array
+     * @throws SqlException
      */
-    public function getInventory(): array {
+    public function getInventory(): array
+    {
         return Product::all(['machine_id' => $this->id]);
     }
 
@@ -46,8 +55,10 @@ class VendingMachine extends Model implements VendingMachineInterface
      *
      * @return bool
      * @throws InvalidSelectionException
+     * @throws SqlException
      */
-    public function selectProduct(int $productId): bool {
+    public function selectProduct(int $productId): bool
+    {
         $product = Product::find($productId);
         if (!$product) {
             throw new InvalidSelectionException();
@@ -62,7 +73,8 @@ class VendingMachine extends Model implements VendingMachineInterface
      * @param int How much sugar
      * @return bool
      */
-    public function setSugarLevel(int $sugarLevel): bool {
+    public function setSugarLevel(int $sugarLevel): bool
+    {
         // TODO: Implement setSugarLevel() method.
     }
 
@@ -72,7 +84,8 @@ class VendingMachine extends Model implements VendingMachineInterface
      * @param int How much milk
      * @return bool
      */
-    public function setMilkLevel(int $milkLevel): bool {
+    public function setMilkLevel(int $milkLevel): bool
+    {
         // TODO: Implement setMilkLevel() method.
     }
 
@@ -81,7 +94,8 @@ class VendingMachine extends Model implements VendingMachineInterface
      *
      * @return bool
      */
-    public function confirmSelection(): bool {
+    public function confirmSelection(): bool
+    {
         // TODO: Implement confirmSelection() method.
     }
 
@@ -90,7 +104,8 @@ class VendingMachine extends Model implements VendingMachineInterface
      *
      * @return bool Successful or not
      */
-    public function scanCard(): bool {
+    public function scanCard(): bool
+    {
         return true;
     }
 
@@ -101,11 +116,20 @@ class VendingMachine extends Model implements VendingMachineInterface
      *
      * @return bool Successful or not
      */
-    public function takeBill(BillInterface $bill): bool {
+    public function takeBill(BillInterface $bill): bool
+    {
         return true;
     }
 
-    public function setCurrentOrder(OrderInterface $order) {
+    /**
+     * Sets currentOrder
+     *
+     * @param OrderInterface
+     *
+     * @return void
+     */
+    public function setCurrentOrder(OrderInterface $order): void
+    {
         $this->currentOrder = $order;
     }
 
@@ -115,18 +139,12 @@ class VendingMachine extends Model implements VendingMachineInterface
      * @return OrderInterface
      * @throws NoOrderInProgressException
      */
-    public function getCurrentOrder(): OrderInterface {
+    public function getCurrentOrder(): OrderInterface
+    {
         if (!$this->currentOrder) {
             throw new NoOrderInProgressException();
         }
         return $this->currentOrder;
-    }
-
-    public function cancelCurrentOrder() {
-        if (!$this->currentOrder) {
-            throw new NoOrderInProgressException();
-        }
-        $this->currentOrder = null;
     }
 
     /**
@@ -141,7 +159,8 @@ class VendingMachine extends Model implements VendingMachineInterface
      * @return bool
      * @throws SqlException
      */
-    public function lock() {
+    public function lock(): bool
+    {
         $sql = sprintf("UPDATE %s SET locked_until=:locked_until WHERE id=:id", self::$tableName);
         $stmt = $this->conn->prepare($sql);
 
@@ -159,7 +178,14 @@ class VendingMachine extends Model implements VendingMachineInterface
         return true;
     }
 
-    public function unlock():bool {
+    /**
+     * Unlock vending machine
+     *
+     * @return bool
+     * @throws SqlException
+     */
+    public function unlock(): bool
+    {
         $sql = sprintf("UPDATE %s SET locked_until=:locked_until", self::$tableName);
         $stmt = $this->conn->prepare($sql);
         $result = $stmt->execute([
@@ -172,8 +198,14 @@ class VendingMachine extends Model implements VendingMachineInterface
         return true;
     }
 
-    public function isLocked() {
-        if(!$this->locked_until) {
+    /**
+     * Checks vending machine lock status
+     *
+     * @return bool
+     */
+    public function isLocked(): bool
+    {
+        if (!$this->locked_until) {
             return false;
         }
         $locked_until = new \DateTime($this->locked_until);
