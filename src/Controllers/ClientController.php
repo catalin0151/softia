@@ -25,6 +25,7 @@ class ClientController
     public function leaveMachine() {
         $client = Session::get('client');
         $client->leaveMachine();
+        Session::set('client', null);
     }
 
     public function getProductList() {
@@ -55,7 +56,7 @@ class ClientController
         return $client->pay();
     }
 
-    public function setOrder($params) {
+    public function setOrder($params): bool {
         $client = Session::get('client');
         $productId = $params['productId'];
         $quantity = $params['quantity'];
@@ -73,6 +74,8 @@ class ClientController
         } else {
             throw new InvalidSelectionException();
         }
+
+        return true;
     }
 
 

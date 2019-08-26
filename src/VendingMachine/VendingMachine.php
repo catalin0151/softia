@@ -144,10 +144,10 @@ class VendingMachine extends Model implements VendingMachineInterface
         }
 
         $this->locked_until = $lockPeriod;
-
+        return true;
     }
 
-    public function unlock() {
+    public function unlock():bool {
         $sql = sprintf("UPDATE %s SET locked_until=:locked_until", self::$tableName);
         $stmt = $this->conn->prepare($sql);
         $result = $stmt->execute([
@@ -157,6 +157,7 @@ class VendingMachine extends Model implements VendingMachineInterface
             throw new SqlException();
         }
         $this->locked_until = null;
+        return true;
     }
 
     public function isLocked() {

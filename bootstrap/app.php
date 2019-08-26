@@ -1,6 +1,6 @@
 <?php
 
-$__env = require_once __ROOT__ . './env.php';
+$__env = require_once __ROOT__ . '/env.php';
 
 function env($param) {
     global $__env;
