@@ -15,6 +15,7 @@ if (!defined('__ROOT__')) {
 require_once(__ROOT__ . '/vendor/autoload.php');
 require_once(__ROOT__ . '/bootstrap/app.php');
 
+//TODO Implement the rest of the unit tests
 class BaseTest extends TestCase
 {
 
