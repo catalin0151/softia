@@ -1,5 +1,4 @@
 <?php
-
 namespace Softia\Challenge\CoffeeMachine;
 
 use Softia\Challenge\CoffeeMachine\Database\Connection;
@@ -9,6 +8,7 @@ use Softia\Challenge\CoffeeMachine\Exceptions\NoOrderInProgressException;
 use Softia\Challenge\CoffeeMachine\Exceptions\PaymentException;
 use Softia\Challenge\CoffeeMachine\Exceptions\SqlException;
 use Softia\Challenge\CoffeeMachine\Providers\Route;
+use Softia\Challenge\CoffeeMachine\VendingMachine\VendingMachine;
 
 class App
 {
@@ -16,14 +16,16 @@ class App
     private $products = null;
     private $oder = null;
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (!self::$instance) {
             self::$instance = new App();
         }
         return self::$instance;
     }
+    public function run()
+    {
 
-    public function run() {
         try {
             $this->useMachine();
             $this->showList();
@@ -32,19 +34,28 @@ class App
             $this->showPaymentOptions();
             $this->pay();
             $this->leaveMachine();
-        } catch (SqlException | MachineAlreadyInUseException $e) {
+        } catch (SqlException $e) {
+            try {
+                $machine = VendingMachine::get();
+                $machine->unlock();
+            } catch (SqlException $e) {
+            }
+            echo $e->errorMessage();
+        } catch (MachineAlreadyInUseException $e) {
             echo $e->errorMessage();
         } finally {
             (Connection::getInstance())->close();
         }
     }
 
-    private function leaveMachine() {
+    private function leaveMachine()
+    {
         Route::goTo('leave-machine');
         echo "Please come again\n";
     }
 
-    private function pay() {
+    private function pay()
+    {
         try {
             $client = Session::get('client');
             $receipt = null;
@@ -67,21 +78,24 @@ class App
 
     }
 
-    private function payWithCash() {
+    private function payWithCash()
+    {
         $receipt = Route::goTo('pay');
         if ($receipt) {
             echo $receipt->toString();
         }
     }
 
-    private function payWithCard() {
+    private function payWithCard()
+    {
         $receipt = Route::goTo('pay');
         if ($receipt) {
             echo $receipt->toString();
         }
     }
 
-    private function placeOrder() {
+    private function placeOrder()
+    {
         try {
             echo "Please select a product id\n";
             $productId = $this->getInput();
@@ -99,15 +113,18 @@ class App
         }
     }
 
-    private function getInput() {
+    private function getInput()
+    {
         return trim(fgets(STDIN));
     }
 
-    private function useMachine() {
+    private function useMachine()
+    {
         Route::goTo('use-machine');
     }
 
-    private function showList() {
+    private function showList()
+    {
         $msg = "Welcome customer, to view the product list type: list\n";
         echo $msg;
         while ($command = $this->getInput() !== 'list') {
@@ -119,19 +136,22 @@ class App
         return $products;
     }
 
-    private function showProducts() {
+    private function showProducts()
+    {
         foreach ($this->products as $product) {
             echo $product->toString() . "\n";
         }
     }
 
-    private function confirmOrder() {
+    private function confirmOrder()
+    {
         echo "Write yes to confirm order or no order something else \n";
         $confirmation = $this->getInput();
 
     }
 
-    private function showPaymentOptions() {
+    private function showPaymentOptions()
+    {
         try {
             echo "Select a method of payment by typing: cash or card \n";
             $method = $this->getInput();

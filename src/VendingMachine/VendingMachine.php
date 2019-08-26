@@ -129,6 +129,18 @@ class VendingMachine extends Model implements VendingMachineInterface
         $this->currentOrder = null;
     }
 
+    /**
+     * The lock mechanism is not complete. I'm using a timestamp to set the lock lifespan, in case the process is killed,
+     * so it won't lock the vending machine forever. But the current user process is not killed because
+     * i didn't implemented a timeout mechanic. I was thinking of using threads to do a countdown for the same value as
+     * the lock, and if the user reaches this timer to be kicked out of the app. And if user is active to update the lock
+     * timestamp, so the user doesn't get kicked of the app in the middle of using it. Right now when the lock expires
+     * the current user who should have been kicked out is still using the app. Because of this there could be multiple users using the
+     * machine on the same time. I tried to creat a thread, or use some signals but it took too much time, so i gave up
+     * on implementing it, to have time to work on some other features.
+     * @return bool
+     * @throws SqlException
+     */
     public function lock() {
         $sql = sprintf("UPDATE %s SET locked_until=:locked_until WHERE id=:id", self::$tableName);
         $stmt = $this->conn->prepare($sql);

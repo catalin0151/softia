@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ab15c4e6-6c72-49c5-95a1-7420fa9e684e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/BaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/BaseTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -151,6 +152,8 @@
       <workItem from="1566795276264" duration="2804000" />
       <workItem from="1566799168941" duration="4671000" />
       <workItem from="1566804822468" duration="128000" />
+      <workItem from="1566815838423" duration="252000" />
+      <workItem from="1566817146811" duration="2745000" />
     </task>
     <servers />
   </component>
@@ -175,7 +178,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/VendingMachine/VendingMachine.php</url>
-          <line>141</line>
+          <line>153</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
