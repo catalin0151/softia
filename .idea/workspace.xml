@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab15c4e6-6c72-49c5-95a1-7420fa9e684e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/softia.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/softia.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpunit.result.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.phpunit.result.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/Client.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ClientController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VendingMachine/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VendingMachine/Payments/Receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/Payments/Receipt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VendingMachine/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VendingMachine/VendingMachine.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,6 +75,11 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -103,18 +99,6 @@
       <recent name="D:\wamp64\www\softia\src\providers" />
       <recent name="D:\wamp64\www\softia\messages" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="PHPUnit.tests">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -161,6 +145,9 @@
       <workItem from="1566804822468" duration="128000" />
       <workItem from="1566815838423" duration="252000" />
       <workItem from="1566817146811" duration="6707000" />
+      <workItem from="1592160902765" duration="1107000" />
+      <workItem from="1592255853713" duration="1265000" />
+      <workItem from="1592288433059" duration="595000" />
     </task>
     <servers />
   </component>
